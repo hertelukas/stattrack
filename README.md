@@ -1,6 +1,6 @@
 # Stat Track
 
-A simple application to track your behavior
+A simple application to track everything you want.
 
 ## Getting Started
 
