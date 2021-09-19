@@ -1,29 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:stattrack/configurationUI.dart';
 import 'package:stattrack/trackerUI.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  bool _isShowingConfig = false;
+  
+  void _showConfig(bool show) {
+    setState(() {
+      _isShowingConfig = show;
+    });
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Stat Track',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: TrackerUI()
+        title: 'Stat Track',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: Builder(
+          builder: (context) => Scaffold(
+            appBar: AppBar(
+              title: _isShowingConfig ? Text('Configuration') : Text('Track'),
+            ),
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  const DrawerHeader(
+                    child: Text('Hello!'),
+                  ),
+                  ListTile(
+                    title: const Text('Tracker'),
+                    onTap: () {
+                      _showConfig(false);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  ListTile(
+                    title: const Text('Configure'),
+                    onTap: () {
+                      _showConfig(true);
+                      Navigator.pop(context);
+                    },
+                  )
+                ],
+              ),
+            ),
+            body: _isShowingConfig ? ConfigurationUI() : TrackerUI(),
+          ),
+        )
+
     );
   }
 }
