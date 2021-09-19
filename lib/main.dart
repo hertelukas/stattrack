@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stattrack/configuration.dart';
 import 'package:stattrack/configurationUI.dart';
 import 'package:stattrack/trackerUI.dart';
 
@@ -7,18 +8,28 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-
   bool _isShowingConfig = false;
-  
+
+  Configuration _config = new Configuration.empty();
+
   void _showConfig(bool show) {
     setState(() {
       _isShowingConfig = show;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    Configuration.readConfig().then((value) {
+      setState(() {
+        _config = value;
+      });
     });
   }
 
@@ -59,10 +70,8 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
             ),
-            body: _isShowingConfig ? ConfigurationUI() : TrackerUI(),
+            body: _isShowingConfig ? ConfigurationUI(_config) : TrackerUI(),
           ),
-        )
-
-    );
+        ));
   }
 }
