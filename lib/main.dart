@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stattrack/trackerUI.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,11 +23,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Stat Track'),
-        ),
-      ),
+      home: TrackerUI()
     );
   }
 }
