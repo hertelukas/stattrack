@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stattrack/configuration.dart';
+import 'package:stattrack/fieldType.dart';
 
 class ConfigurationUI extends StatefulWidget {
   final Configuration config;
@@ -12,60 +13,119 @@ class ConfigurationUI extends StatefulWidget {
 
 class _ConfigurationUIState extends State<ConfigurationUI> {
   final Configuration config;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   _ConfigurationUIState(this.config);
 
-  void _addField(String name){
-    setState(() {
-      config.addField(name);
-      Configuration.writeConfiguration(config);
-
-    });
+  void callback() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: config.fields.length + 1,
-      itemBuilder: (BuildContext context, int index) {
-        if (index == 0) {
-          return Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Enter a stat to track',
-                    ),
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter some text';
-                      }
-                      return null;
-                    },
+    return Scaffold(
+        body: ListView.builder(
+          itemCount: config.fields.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Container(
+              height: 50,
+              child: Text('${config.fields[index].name}'),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute<void>(
+                  builder: (BuildContext context) => _AddTrackerForm(config, this.callback),
+                ));
+          },
+          child: const Icon(Icons.add),
+        ));
+  }
+}
+
+class _AddTrackerForm extends StatefulWidget {
+  final Configuration config;
+  final Function callback;
+
+  _AddTrackerForm(this.config, this.callback, {Key? key}) : super(key: key);
+
+  @override
+  _AddTrackerFormState createState() => _AddTrackerFormState(config);
+}
+
+class _AddTrackerFormState extends State<_AddTrackerForm> {
+  final controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  //Set the default type to an integer
+  FieldType dropdownValue = FieldType.integer;
+  final Configuration config;
+
+  _AddTrackerFormState(this.config);
+
+  void _addField(String name, FieldType type) {
+    setState(() {
+      config.addField(name, type);
+      //Notify the parent to update its view
+      this.widget.callback();
+      Configuration.writeConfiguration(config);
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text('Create a new Item'),
+        ),
+        body: Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                TextFormField(
+                  decoration: const InputDecoration(
+                    hintText: 'Enter a stat to track',
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _addField("input"); //TODO get input from the form
-                        }
-                      },
-                      child: const Text('Submit'),
-                    ),
-                  ),
-                ],
-              ));
-        } else {
-          return Container(
-            height: 50,
-            child: Text('${config.fields[index - 1].name}'),
-          );
-        }
-      },
-    );
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter a name';
+                    }
+                    return null;
+                  },
+                  controller: controller,
+                ),
+                DropdownButton<FieldType>(
+                    value: dropdownValue,
+                    items: FieldType.values
+                        .map<DropdownMenuItem<FieldType>>((FieldType value) {
+                      return DropdownMenuItem<FieldType>(
+                        value: value,
+                        child: Text(value.name),
+                      );
+                    }).toList(),
+                    onChanged: (FieldType? newValue) {
+                      setState(() {
+                        dropdownValue = newValue!;
+                      });
+                    }),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _addField(controller.text, dropdownValue);
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: const Text('Add'),
+                )
+              ],
+            )));
   }
 }

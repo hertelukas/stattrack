@@ -46,8 +46,8 @@ class Configuration {
 
   Configuration(this.fields);
 
-  void addField(String name){
-    fields.add(Field(name, FieldType.integer));
+  void addField(String name, FieldType type){
+    fields.add(Field(name, type));
   }
 
   factory Configuration.fromJson(Map<String, dynamic> json) => _$ConfigurationFromJson(json);
