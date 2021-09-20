@@ -26,9 +26,22 @@ class _ConfigurationUIState extends State<ConfigurationUI> {
         body: ListView.builder(
           itemCount: config.fields.length,
           itemBuilder: (BuildContext context, int index) {
-            return Container(
-              height: 50,
-              child: Text('${config.fields[index].name}'),
+            String item = config.fields[index].name + " (" + config.fields[index].type.name + ")";
+            return Dismissible(
+              key: Key(item),
+              onDismissed: (DismissDirection dir){
+                setState(() {
+                  config.removeField(index);
+                });
+              },
+              background: Container(
+                child: Icon(Icons.delete),
+                color: Colors.red,
+                alignment: Alignment.centerLeft,
+              ),
+              child: ListTile(
+                title: Text("$item")
+              )
             );
           },
         ),
@@ -70,7 +83,6 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
       config.addField(name, type);
       //Notify the parent to update its view
       this.widget.callback();
-      Configuration.writeConfiguration(config);
     });
   }
 

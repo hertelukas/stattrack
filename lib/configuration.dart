@@ -48,6 +48,12 @@ class Configuration {
 
   void addField(String name, FieldType type){
     fields.add(Field(name, type));
+    writeConfiguration(this);
+  }
+
+  void removeField(int index){
+    fields.removeAt(index);
+    writeConfiguration(this);
   }
 
   factory Configuration.fromJson(Map<String, dynamic> json) => _$ConfigurationFromJson(json);
