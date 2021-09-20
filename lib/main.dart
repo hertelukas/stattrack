@@ -3,6 +3,7 @@ import 'package:stattrack/configuration.dart';
 import 'package:stattrack/configurationUI.dart';
 import 'package:stattrack/trackerUI.dart';
 import 'package:stattrack/data.dart';
+import 'package:share_plus/share_plus.dart';
 
 void main() {
   runApp(MyApp());
@@ -53,9 +54,11 @@ class _MyAppState extends State<MyApp> {
               title: _isShowingConfig ? Text('Configuration') : Text('Track'),
               actions: <Widget>[
                 IconButton(
-                  icon: const Icon(Icons.more_vert),
-                  onPressed: () {},
-                ),
+                  icon: Icon(Icons.share),
+                  onPressed: () {
+                    Share.shareFiles(['${Data.path}/data.json']);
+                  },
+                )
               ],
             ),
             drawer: Drawer(

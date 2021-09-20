@@ -11,13 +11,13 @@ part 'data.g.dart';
 class Data {
   static Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
-
+    Data.path = directory.path;
     return directory.path;
   }
 
   static Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/data.stt');
+    return File('$path/data.json');
   }
 
   static Future<Data> readData() async {
@@ -43,6 +43,7 @@ class Data {
   }
 
   static Data singleton = Data();
+  static String? path;
 
   List<_Entry> entries;
 
@@ -51,6 +52,7 @@ class Data {
     writeData(this);
     print(jsonEncode(this));
   }
+
 
   Data() : entries = List<_Entry>.empty(growable: true);
 
