@@ -26,23 +26,35 @@ class _ConfigurationUIState extends State<ConfigurationUI> {
         body: ListView.builder(
           itemCount: config.fields.length,
           itemBuilder: (BuildContext context, int index) {
-            String item = config.fields[index].name + " (" + config.fields[index].type.name + ")";
+            String item = config.fields[index].name +
+                " (" +
+                config.fields[index].type.name +
+                ")";
+            Field field = config.fields[index];
             return Dismissible(
-              key: Key(item),
-              onDismissed: (DismissDirection dir){
-                setState(() {
-                  config.removeField(index);
-                });
-              },
-              background: Container(
-                child: Icon(Icons.delete),
-                color: Colors.red,
-                alignment: Alignment.centerLeft,
-              ),
-              child: ListTile(
-                title: Text("$item")
-              )
-            );
+                key: Key(item),
+                onDismissed: (DismissDirection dir) {
+                  setState(() {
+                    config.removeField(index);
+                  });
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: const Text("Removed item"),
+                    action: SnackBarAction(
+                      label: "Undo",
+                      onPressed: () {
+                        setState(() {
+                          config.addFieldAt(field, index);
+                        });
+                      },
+                    ),
+                  ));
+                },
+                background: Container(
+                  child: Icon(Icons.delete),
+                  color: Colors.red,
+                  alignment: Alignment.centerLeft,
+                ),
+                child: ListTile(title: Text("$item")));
           },
         ),
         floatingActionButton: FloatingActionButton(
@@ -50,7 +62,8 @@ class _ConfigurationUIState extends State<ConfigurationUI> {
             Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => _AddTrackerForm(config, this.callback),
+                  builder: (BuildContext context) =>
+                      _AddTrackerForm(config, this.callback),
                 ));
           },
           child: const Icon(Icons.add),
@@ -80,7 +93,7 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
 
   void _addField(String name, FieldType type) {
     setState(() {
-      config.addField(name, type);
+      config.addFieldByName(name, type);
       //Notify the parent to update its view
       this.widget.callback();
     });

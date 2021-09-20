@@ -46,8 +46,16 @@ class Configuration {
 
   Configuration(this.fields);
 
-  void addField(String name, FieldType type){
-    fields.add(Field(name, type));
+  void addFieldByName(String name, FieldType type){
+    addField(Field(name, type));
+  }
+
+  void addField(Field field){
+    addFieldAt(field, fields.length);
+  }
+
+  void addFieldAt(Field field, int index){
+    fields.insert(index, field);
     writeConfiguration(this);
   }
 
