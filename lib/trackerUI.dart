@@ -1,8 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stattrack/configuration.dart';
 import 'package:stattrack/fieldType.dart';
 import 'package:stattrack/data.dart';
-
 
 class TrackerUI extends StatefulWidget {
   final Configuration config;
@@ -16,11 +16,11 @@ class TrackerUI extends StatefulWidget {
 class _TrackerUIState extends State<TrackerUI> {
   final Configuration config;
 
-  _TrackerUIState(this.config): fields = Map();
+  _TrackerUIState(this.config) : fields = Map();
 
   Map<String, Object> fields;
 
-  bool _save(){
+  bool _save() {
     Data.singleton.addEntry(fields);
     return true;
   }
@@ -32,21 +32,28 @@ class _TrackerUIState extends State<TrackerUI> {
         child: Text("Add items to track in the config menu!"),
       );
     } else {
-      return ListView.builder(
-          itemCount: config.fields.length + 1,
-          itemBuilder: (BuildContext context, int index) {
-            if (index < config.fields.length) {
-              return _CustomRow(config.fields[index], fields);
-            } else {
-              return ElevatedButton(
-                onPressed: () {
-                  _save();
-                  //TODO show feedback that save was successful
-                },
-                child: const Text("Save"),
-              );
-            }
-          });
+      return ListView.separated(
+        padding: const EdgeInsets.all(20),
+        itemCount: config.fields.length + 1,
+        itemBuilder: (BuildContext context, int index) {
+          if (index < config.fields.length) {
+            return _CustomRow(config.fields[index], fields);
+          } else {
+            return Center(
+                child: ElevatedButton(
+              onPressed: () {
+                _save();
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: const Text("Saved entry!")));
+              },
+              child: const Text("Save"),
+            ));
+          }
+        },
+        separatorBuilder: (BuildContext context, int index) {
+          return const Divider();
+        },
+      );
     }
   }
 }
@@ -81,23 +88,30 @@ class _CustomRowState extends State<_CustomRow> {
   Widget build(BuildContext context) {
     switch (field.type) {
       case FieldType.text:
-        return Row(
+        return ListBody(
           children: <Widget>[
-            Text(field.name),
-            Expanded(
-                child: TextField(
+            Text(
+              field.name,
+              style:
+                  DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.4),
+            ),
+            TextField(
               decoration: InputDecoration(hintText: 'Text'),
               controller: controller,
               onSubmitted: (String value) {
                 this.widget.fields[field.name] = value;
               },
-            ))
+            )
           ],
         );
       case FieldType.boolean:
         return Row(
           children: <Widget>[
-            Text(field.name),
+            Text(
+              field.name,
+              style:
+                  DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.4),
+            ),
             Checkbox(
                 value: isChecked,
                 onChanged: (bool? value) {
@@ -109,8 +123,12 @@ class _CustomRowState extends State<_CustomRow> {
           ],
         );
       case FieldType.slider0to10:
-        return Row(children: <Widget>[
-          Text(field.name),
+        return ListBody(children: <Widget>[
+          Text(
+            field.name,
+            style:
+                DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.4),
+          ),
           Slider(
             value: sliderValue,
             min: 0,

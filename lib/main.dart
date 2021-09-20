@@ -67,6 +67,11 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   const DrawerHeader(
                     child: Text('Hello!'),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: <Color>[Colors.blue, Colors.black])),
                   ),
                   ListTile(
                     title: const Text('Tracker'),

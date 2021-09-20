@@ -114,7 +114,24 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
         body: Form(
             key: _formKey,
             child: ListView(
+              padding: const EdgeInsets.all(20),
               children: [
+                Center(
+                    child: DropdownButton<FieldType>(
+                        value: dropdownValue,
+                        items: FieldType.values
+                            .map<DropdownMenuItem<FieldType>>(
+                                (FieldType value) {
+                          return DropdownMenuItem<FieldType>(
+                            value: value,
+                            child: Text(value.name),
+                          );
+                        }).toList(),
+                        onChanged: (FieldType? newValue) {
+                          setState(() {
+                            dropdownValue = newValue!;
+                          });
+                        })),
                 TextFormField(
                   decoration: const InputDecoration(
                     hintText: 'Enter a stat to track',
@@ -127,21 +144,8 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
                   },
                   controller: controller,
                 ),
-                DropdownButton<FieldType>(
-                    value: dropdownValue,
-                    items: FieldType.values
-                        .map<DropdownMenuItem<FieldType>>((FieldType value) {
-                      return DropdownMenuItem<FieldType>(
-                        value: value,
-                        child: Text(value.name),
-                      );
-                    }).toList(),
-                    onChanged: (FieldType? newValue) {
-                      setState(() {
-                        dropdownValue = newValue!;
-                      });
-                    }),
-                ElevatedButton(
+                Center(
+                    child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _addField(controller.text, dropdownValue);
@@ -149,7 +153,7 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
                     }
                   },
                   child: const Text('Add'),
-                )
+                ))
               ],
             )));
   }
