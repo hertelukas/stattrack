@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stattrack/configuration.dart';
 import 'package:stattrack/configurationUI.dart';
 import 'package:stattrack/trackerUI.dart';
+import 'package:stattrack/data.dart';
 
 void main() {
   runApp(MyApp());
@@ -26,6 +27,11 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    Data.readData().then((value) {
+      setState(() {
+        Data.singleton = value;
+      });
+    });
     Configuration.readConfig().then((value) {
       setState(() {
         _config = value;
@@ -47,10 +53,8 @@ class _MyAppState extends State<MyApp> {
               title: _isShowingConfig ? Text('Configuration') : Text('Track'),
               actions: <Widget>[
                 IconButton(
-                    icon: const Icon(Icons.more_vert),
-                  onPressed: (){
-
-                  },
+                  icon: const Icon(Icons.more_vert),
+                  onPressed: () {},
                 ),
               ],
             ),
@@ -78,7 +82,9 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
             ),
-            body: _isShowingConfig ? ConfigurationUI(_config) : TrackerUI(_config),
+            body: _isShowingConfig
+                ? ConfigurationUI(_config)
+                : TrackerUI(_config),
           ),
         ));
   }

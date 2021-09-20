@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:stattrack/configuration.dart';
 import 'package:stattrack/fieldType.dart';
+import 'package:stattrack/data.dart';
+
 
 class TrackerUI extends StatefulWidget {
   final Configuration config;
@@ -14,7 +16,14 @@ class TrackerUI extends StatefulWidget {
 class _TrackerUIState extends State<TrackerUI> {
   final Configuration config;
 
-  _TrackerUIState(this.config);
+  _TrackerUIState(this.config): fields = Map();
+
+  Map<String, Object> fields;
+
+  bool _save(){
+    Data.singleton.addEntry(fields);
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +36,13 @@ class _TrackerUIState extends State<TrackerUI> {
           itemCount: config.fields.length + 1,
           itemBuilder: (BuildContext context, int index) {
             if (index < config.fields.length) {
-              return _CustomRow(config.fields[index]);
+              return _CustomRow(config.fields[index], fields);
             } else {
               return ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  _save();
+                  //TODO show feedback that save was successful
+                },
                 child: const Text("Save"),
               );
             }
@@ -41,8 +53,9 @@ class _TrackerUIState extends State<TrackerUI> {
 
 class _CustomRow extends StatefulWidget {
   final Field field;
+  final Map<String, Object> fields;
 
-  const _CustomRow(this.field, {Key? key}) : super(key: key);
+  const _CustomRow(this.field, this.fields, {Key? key}) : super(key: key);
 
   @override
   _CustomRowState createState() => _CustomRowState(field);
@@ -75,7 +88,9 @@ class _CustomRowState extends State<_CustomRow> {
                 child: TextField(
               decoration: InputDecoration(hintText: 'Text'),
               controller: controller,
-              onSubmitted: (String value) {},
+              onSubmitted: (String value) {
+                this.widget.fields[field.name] = value;
+              },
             ))
           ],
         );
@@ -88,6 +103,7 @@ class _CustomRowState extends State<_CustomRow> {
                 onChanged: (bool? value) {
                   setState(() {
                     isChecked = value!;
+                    this.widget.fields[field.name] = isChecked;
                   });
                 })
           ],
@@ -103,6 +119,7 @@ class _CustomRowState extends State<_CustomRow> {
             onChanged: (double value) {
               setState(() {
                 sliderValue = value;
+                this.widget.fields[field.name] = value;
               });
             },
           )

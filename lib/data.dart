@@ -20,7 +20,7 @@ class Data {
     return File('$path/data.stt');
   }
 
-  static Future<Data> readConfig() async {
+  static Future<Data> readData() async {
     try {
       final file = await _localFile;
 
@@ -32,7 +32,7 @@ class Data {
     }
   }
 
-  static Future<File> writeConfiguration(Data data) async {
+  static Future<File> writeData(Data data) async {
     final file = await _localFile;
 
     return file.writeAsString(jsonEncode(data));
@@ -42,7 +42,15 @@ class Data {
     return jsonEncode(data);
   }
 
+  static Data singleton = Data();
+
   List<_Entry> entries;
+
+  void addEntry(Map<String, Object> fields) {
+    entries.add(_Entry(DateTime.now(), fields));
+    writeData(this);
+    print(jsonEncode(this));
+  }
 
   Data() : entries = List<_Entry>.empty(growable: true);
 
@@ -57,4 +65,8 @@ class _Entry {
   Map<String, Object> fields;
 
   _Entry(this.date, this.fields);
+
+  factory _Entry.fromJson(Map<String, dynamic> json) => _$_EntryFromJson(json);
+
+  Map<String, dynamic> toJson() => _$_EntryToJson(this);
 }
