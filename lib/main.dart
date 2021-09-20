@@ -5,6 +5,19 @@ import 'package:stattrack/trackerUI.dart';
 import 'package:stattrack/data.dart';
 import 'package:share_plus/share_plus.dart';
 
+final Map<int, Color> color = {
+  50: Color.fromRGBO(4, 131, 184, .1),
+  100: Color.fromRGBO(4, 131, 184, .2),
+  200: Color.fromRGBO(4, 131, 184, .3),
+  300: Color.fromRGBO(4, 131, 184, .4),
+  400: Color.fromRGBO(4, 131, 184, .5),
+  500: Color.fromRGBO(4, 131, 184, .6),
+  600: Color.fromRGBO(4, 131, 184, .7),
+  700: Color.fromRGBO(4, 131, 184, .8),
+  800: Color.fromRGBO(4, 131, 184, .9),
+  900: Color.fromRGBO(4, 131, 184, 1),
+};
+
 void main() {
   runApp(MyApp());
 }
@@ -40,14 +53,15 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  MaterialColor main = MaterialColor(0xff28AFB0, color);
+  MaterialColor dark = MaterialColor(0xff30343F, color);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Stat Track',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: main),
         home: Builder(
           builder: (context) => Scaffold(
             appBar: AppBar(
@@ -71,7 +85,10 @@ class _MyAppState extends State<MyApp> {
                         gradient: LinearGradient(
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
-                            colors: <Color>[Colors.blue, Colors.black])),
+                            colors: <Color>[
+                          Color.fromARGB(255, 40, 175, 176),
+                          Color.fromARGB(255, 48, 52, 63)
+                        ])),
                   ),
                   ListTile(
                     title: const Text('Tracker'),

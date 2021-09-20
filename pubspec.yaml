@@ -36,6 +36,7 @@ dev_dependencies:
     sdk: flutter
   build_runner: any
   json_serializable: any
+  flutter_launcher_icons: "^0.9.2"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -78,3 +79,8 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon.png"
