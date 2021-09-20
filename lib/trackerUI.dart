@@ -98,7 +98,7 @@ class _CustomRowState extends State<_CustomRow> {
             TextField(
               decoration: InputDecoration(hintText: 'Text'),
               controller: controller,
-              onSubmitted: (String value) {
+              onChanged: (String value) {
                 this.widget.fields[field.name] = value;
               },
             )
