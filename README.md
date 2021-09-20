@@ -12,7 +12,7 @@ Examples to track:
 - ...
 
 ### Colors
-Main: #28AFB0
-Secondary: #9191E9
-Background: #30343F
-Background 2: #1B2021
+- Main: #28AFB0
+- Secondary: #9191E9
+- Background: #30343F
+- Background 2: #1B2021
