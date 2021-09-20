@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stattrack/configuration.dart';
 import 'package:stattrack/configurationUI.dart';
 import 'package:stattrack/trackerUI.dart';
+import 'package:stattrack/historyUI.dart';
 import 'package:stattrack/data.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -29,12 +30,19 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool _isShowingConfig = false;
+  bool _isShowingHistory = false;
 
   Configuration _config = new Configuration.empty();
 
   void _showConfig(bool show) {
     setState(() {
       _isShowingConfig = show;
+    });
+  }
+
+  void _showHistory(bool show) {
+    setState(() {
+      _isShowingHistory = show;
     });
   }
 
@@ -65,7 +73,11 @@ class _MyAppState extends State<MyApp> {
         home: Builder(
           builder: (context) => Scaffold(
             appBar: AppBar(
-              title: _isShowingConfig ? Text('Configuration') : Text('Track'),
+              title: _isShowingConfig
+                  ? Text('Configuration')
+                  : _isShowingHistory
+                      ? Text('History')
+                      : Text('Track'),
               actions: <Widget>[
                 IconButton(
                   icon: Icon(Icons.share),
@@ -94,22 +106,33 @@ class _MyAppState extends State<MyApp> {
                     title: const Text('Tracker'),
                     onTap: () {
                       _showConfig(false);
+                      _showHistory(false);
                       Navigator.pop(context);
                     },
                   ),
                   ListTile(
                     title: const Text('Configure'),
                     onTap: () {
+                      _showHistory(false);
                       _showConfig(true);
                       Navigator.pop(context);
                     },
-                  )
+                  ),
+                  ListTile(
+                      title: const Text('History'),
+                      onTap: () {
+                        _showConfig(false);
+                        _showHistory(true);
+                        Navigator.pop(context);
+                      })
                 ],
               ),
             ),
             body: _isShowingConfig
                 ? ConfigurationUI(_config)
-                : TrackerUI(_config),
+                : _isShowingHistory
+                    ? HistoryUI()
+                    : TrackerUI(_config),
           ),
         ));
   }
