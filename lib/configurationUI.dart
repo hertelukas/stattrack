@@ -86,7 +86,7 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
   final _formKey = GlobalKey<FormState>();
 
   //Set the default type to an integer
-  FieldType dropdownValue = FieldType.integer;
+  FieldType dropdownValue = FieldType.text;
   final Configuration config;
 
   _AddTrackerFormState(this.config);

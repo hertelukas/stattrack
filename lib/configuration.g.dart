@@ -58,7 +58,7 @@ K _$enumDecode<K, V>(
 }
 
 const _$FieldTypeEnumMap = {
-  FieldType.integer: 'integer',
+  FieldType.text: 'text',
   FieldType.boolean: 'boolean',
   FieldType.slider0to10: 'slider0to10',
 };

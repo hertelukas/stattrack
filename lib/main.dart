@@ -45,6 +45,14 @@ class _MyAppState extends State<MyApp> {
           builder: (context) => Scaffold(
             appBar: AppBar(
               title: _isShowingConfig ? Text('Configuration') : Text('Track'),
+              actions: <Widget>[
+                IconButton(
+                    icon: const Icon(Icons.more_vert),
+                  onPressed: (){
+
+                  },
+                ),
+              ],
             ),
             drawer: Drawer(
               child: ListView(
@@ -70,7 +78,7 @@ class _MyAppState extends State<MyApp> {
                 ],
               ),
             ),
-            body: _isShowingConfig ? ConfigurationUI(_config) : TrackerUI(),
+            body: _isShowingConfig ? ConfigurationUI(_config) : TrackerUI(_config),
           ),
         ));
   }
