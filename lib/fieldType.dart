@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:flutter/services.dart';
 
 part 'fieldType.g.dart';
 
@@ -9,12 +10,14 @@ class FieldType {
   static FieldType text = FieldType("Text", 0);
   static FieldType checkbox = FieldType("Checkbox", 1);
   static FieldType slider = FieldType("Slider", 2);
+  static FieldType number = FieldType("Number", 3);
 
   static List<FieldType> values() {
     List<FieldType> values = List<FieldType>.empty(growable: true);
     values.add(text);
     values.add(checkbox);
     values.add(slider);
+    values.add(number);
 
     return values;
   }
@@ -53,11 +56,13 @@ class _CustomInputState extends State<_CustomInput> {
   final String name;
   final FieldType type;
   final controller = TextEditingController();
+  final numberController = TextEditingController();
 
   _CustomInputState(this.name, this.type);
 
   bool isChecked = false;
   double sliderValue = 0;
+  int value = 0;
 
   @override
   void dispose() {
@@ -110,6 +115,39 @@ class _CustomInputState extends State<_CustomInput> {
             sliderValue = value;
             this.widget.fields[name] = value;
           });
+        },
+      );
+    }
+
+    // Number
+    if (type.id == FieldType.number.id) {
+      // Set default entry
+      this.widget.fields[name] = value;
+
+      return TextField(
+        decoration: InputDecoration(hintText: 'Text'),
+        controller: numberController,
+        keyboardType: TextInputType.numberWithOptions(
+          decimal: true,
+          signed: false,
+        ),
+        // Source https://stackoverflow.com/a/66919717/9820072
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(
+              RegExp('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$')),
+          TextInputFormatter.withFunction((oldValue, newValue) {
+            try {
+              final text = newValue.text;
+              if (text.isNotEmpty) double.parse(text);
+              return newValue;
+            } catch (e) {}
+            return oldValue;
+          }),
+        ],
+        onChanged: (String value) {
+          double? val = double.tryParse(value);
+          if (val == null) {}
+          this.widget.fields[name] = val == null ? 0 : val;
         },
       );
     }
