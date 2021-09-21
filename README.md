@@ -6,9 +6,12 @@ A simple application to track everything you want.
 Stat Track is an app that lets you track numbers, text and many more and export it to JSON.
 
 Examples to track:
-- Your expenses
-- Your sleep
+- Expenses
+- Sleep
 - Work time
+- Training progress
+- Health
+- Wellbeing
 - ...
 
 ### Colors
