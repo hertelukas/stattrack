@@ -114,12 +114,12 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
         body: Form(
             key: _formKey,
             child: ListView(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(8),
               children: [
                 Center(
                     child: DropdownButton<FieldType>(
                         value: dropdownValue,
-                        items: FieldType.values
+                        items: FieldType.values()
                             .map<DropdownMenuItem<FieldType>>(
                                 (FieldType value) {
                           return DropdownMenuItem<FieldType>(

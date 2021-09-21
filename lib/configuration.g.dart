@@ -22,43 +22,11 @@ Map<String, dynamic> _$ConfigurationToJson(Configuration instance) =>
 Field _$FieldFromJson(Map<String, dynamic> json) {
   return Field(
     json['name'] as String,
-    _$enumDecode(_$FieldTypeEnumMap, json['type']),
+    FieldType.fromJson(json['type'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$FieldToJson(Field instance) => <String, dynamic>{
       'name': instance.name,
-      'type': _$FieldTypeEnumMap[instance.type],
+      'type': instance.type,
     };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-const _$FieldTypeEnumMap = {
-  FieldType.text: 'text',
-  FieldType.boolean: 'boolean',
-  FieldType.slider: 'slider0to10',
-};

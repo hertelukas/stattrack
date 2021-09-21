@@ -89,70 +89,7 @@ class Field {
         name,
         style: DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.2),
       ),
-      subtitle: _CustomInput(this, fields),
+      subtitle: type.getVisualRepresentation(fields, name),
     );
-  }
-}
-
-class _CustomInput extends StatefulWidget {
-  final Field field;
-  final Map<String, Object> fields;
-
-  const _CustomInput(this.field, this.fields, {Key? key}) : super(key: key);
-
-  @override
-  _CustomInputState createState() => _CustomInputState(field);
-}
-
-class _CustomInputState extends State<_CustomInput> {
-  final Field field;
-  final controller = TextEditingController();
-
-  _CustomInputState(this.field);
-
-  bool isChecked = false;
-  int value = 0;
-  double sliderValue = 0;
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    switch (field.type) {
-      case FieldType.text:
-        return TextField(
-          decoration: InputDecoration(hintText: 'Text'),
-          controller: controller,
-          onChanged: (String value) {
-            this.widget.fields[field.name] = value;
-          },
-        );
-      case FieldType.boolean:
-        return Checkbox(
-            value: isChecked,
-            onChanged: (bool? value) {
-              setState(() {
-                isChecked = value!;
-                this.widget.fields[field.name] = isChecked;
-              });
-            });
-      case FieldType.slider:
-        return Slider(
-          value: sliderValue,
-          min: 0,
-          max: 10,
-          divisions: 10,
-          onChanged: (double value) {
-            setState(() {
-              sliderValue = value;
-              this.widget.fields[field.name] = value;
-            });
-          },
-        );
-    }
   }
 }
