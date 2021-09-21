@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stattrack/configuration.dart';
-import 'package:stattrack/fieldType.dart';
 import 'package:stattrack/data.dart';
 
 class TrackerUI extends StatefulWidget {
@@ -33,11 +32,11 @@ class _TrackerUIState extends State<TrackerUI> {
       );
     } else {
       return ListView.separated(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(8),
         itemCount: config.fields.length + 1,
         itemBuilder: (BuildContext context, int index) {
           if (index < config.fields.length) {
-            return _CustomRow(config.fields[index], fields);
+            return config.fields[index].getWidget(fields, context);
           } else {
             return Center(
                 child: ElevatedButton(
@@ -54,94 +53,6 @@ class _TrackerUIState extends State<TrackerUI> {
           return const Divider();
         },
       );
-    }
-  }
-}
-
-class _CustomRow extends StatefulWidget {
-  final Field field;
-  final Map<String, Object> fields;
-
-  const _CustomRow(this.field, this.fields, {Key? key}) : super(key: key);
-
-  @override
-  _CustomRowState createState() => _CustomRowState(field);
-}
-
-class _CustomRowState extends State<_CustomRow> {
-  final Field field;
-  final controller = TextEditingController();
-
-  _CustomRowState(this.field);
-
-  bool isChecked = false;
-  int value = 0;
-  double sliderValue = 0;
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    switch (field.type) {
-      case FieldType.text:
-        return ListBody(
-          children: <Widget>[
-            Text(
-              field.name,
-              style:
-                  DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.4),
-            ),
-            TextField(
-              decoration: InputDecoration(hintText: 'Text'),
-              controller: controller,
-              onChanged: (String value) {
-                this.widget.fields[field.name] = value;
-              },
-            )
-          ],
-        );
-      case FieldType.boolean:
-        return Row(
-          children: <Widget>[
-            Text(
-              field.name,
-              style:
-                  DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.4),
-            ),
-            Checkbox(
-                value: isChecked,
-                onChanged: (bool? value) {
-                  setState(() {
-                    isChecked = value!;
-                    this.widget.fields[field.name] = isChecked;
-                  });
-                })
-          ],
-        );
-      case FieldType.slider0to10:
-        return ListBody(children: <Widget>[
-          Text(
-            field.name,
-            style:
-                DefaultTextStyle.of(context).style.apply(fontSizeFactor: 1.4),
-          ),
-          Slider(
-            value: sliderValue,
-            min: 0,
-            max: 10,
-            divisions: 10,
-            onChanged: (double value) {
-              setState(() {
-                sliderValue = value;
-                this.widget.fields[field.name] = value;
-              });
-            },
-          )
-        ]);
     }
   }
 }

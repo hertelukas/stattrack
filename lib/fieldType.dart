@@ -1,13 +1,13 @@
-enum FieldType { text, boolean, slider0to10 }
+enum FieldType { text, boolean, slider }
 
-extension NameExtension on FieldType {
+extension GetExtension on FieldType {
   String get name {
     switch (this) {
       case FieldType.text:
         return "Text";
       case FieldType.boolean:
         return "Checkbox";
-      case FieldType.slider0to10:
+      case FieldType.slider:
         return "Slider";
     }
   }
