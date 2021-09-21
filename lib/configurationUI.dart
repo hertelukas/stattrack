@@ -50,7 +50,6 @@ class _ConfigurationUIState extends State<ConfigurationUI> {
                   ));
                 },
                 background: Container(
-                  child: Icon(Icons.delete),
                   color: Colors.red,
                   alignment: Alignment.centerLeft,
                 ),
