@@ -125,7 +125,7 @@ class _CustomInputState extends State<_CustomInput> {
       this.widget.fields[name] = value;
 
       return TextField(
-        decoration: InputDecoration(hintText: 'Text'),
+        decoration: InputDecoration(hintText: '18'),
         controller: numberController,
         keyboardType: TextInputType.numberWithOptions(
           decimal: true,
