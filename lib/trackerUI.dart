@@ -30,29 +30,30 @@ class _TrackerUIState extends State<TrackerUI> {
       return Center(
         child: Text("Add items to track in the config menu!"),
       );
-    } else {
-      return ListView.separated(
-        padding: const EdgeInsets.all(8),
-        itemCount: config.fields.length + 1,
-        itemBuilder: (BuildContext context, int index) {
-          if (index < config.fields.length) {
-            return config.fields[index].getWidget(fields, context);
-          } else {
-            return Center(
-                child: ElevatedButton(
-              onPressed: () {
-                _save();
-                ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: const Text("Saved entry!")));
-              },
-              child: const Text("Save"),
-            ));
-          }
-        },
-        separatorBuilder: (BuildContext context, int index) {
-          return const Divider();
-        },
-      );
     }
+
+    // If there are some fields, we return them
+    return ListView.separated(
+      padding: const EdgeInsets.all(8),
+      itemCount: config.fields.length + 1,
+      itemBuilder: (BuildContext context, int index) {
+        if (index < config.fields.length) {
+          return config.fields[index].getWidget(fields, context);
+        } else {
+          return Center(
+              child: ElevatedButton(
+            onPressed: () {
+              _save();
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: const Text("Saved entry!")));
+            },
+            child: const Text("Save"),
+          ));
+        }
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return const Divider();
+      },
+    );
   }
 }

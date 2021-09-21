@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
   bool _isShowingConfig = false;
   bool _isShowingHistory = false;
 
-  Configuration _config = new Configuration.empty();
+  late Configuration _config = new Configuration.empty();
 
   void _showConfig(bool show) {
     setState(() {
@@ -54,11 +54,6 @@ class _MyAppState extends State<MyApp> {
         Data.singleton = value;
       });
     });
-    Configuration.readConfig().then((value) {
-      setState(() {
-        _config = value;
-      });
-    });
   }
 
   MaterialColor main = MaterialColor(0xff28AFB0, color);
@@ -67,73 +62,87 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("Building app");
+    print("Fields: " + _config.fields.length.toString());
     return MaterialApp(
         title: 'Stat Track',
         theme: ThemeData(primarySwatch: main),
         home: Builder(
           builder: (context) => Scaffold(
-            appBar: AppBar(
-              title: _isShowingConfig
-                  ? Text('Configuration')
-                  : _isShowingHistory
-                      ? Text('History')
-                      : Text('Track'),
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(Icons.share),
-                  onPressed: () {
-                    Share.shareFiles(['${Data.path}/data.json']);
-                  },
-                )
-              ],
-            ),
-            drawer: Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const DrawerHeader(
-                    child: Text('Hello!'),
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: <Color>[
-                          Color.fromARGB(255, 40, 175, 176),
-                          Color.fromARGB(255, 48, 52, 63)
-                        ])),
-                  ),
-                  ListTile(
-                    title: const Text('Tracker'),
-                    onTap: () {
-                      _showConfig(false);
-                      _showHistory(false);
-                      Navigator.pop(context);
+              appBar: AppBar(
+                title: _isShowingConfig
+                    ? Text('Configuration')
+                    : _isShowingHistory
+                        ? Text('History')
+                        : Text('Track'),
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(Icons.share),
+                    onPressed: () {
+                      Share.shareFiles(['${Data.path}/data.json']);
                     },
-                  ),
-                  ListTile(
-                    title: const Text('Configure'),
-                    onTap: () {
-                      _showHistory(false);
-                      _showConfig(true);
-                      Navigator.pop(context);
-                    },
-                  ),
-                  ListTile(
-                      title: const Text('History'),
-                      onTap: () {
-                        _showConfig(false);
-                        _showHistory(true);
-                        Navigator.pop(context);
-                      })
+                  )
                 ],
               ),
-            ),
-            body: _isShowingConfig
-                ? ConfigurationUI(_config)
-                : _isShowingHistory
-                    ? HistoryUI()
-                    : TrackerUI(_config),
-          ),
+              drawer: Drawer(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    const DrawerHeader(
+                      child: Text('Hello!'),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                              colors: <Color>[
+                            Color.fromARGB(255, 40, 175, 176),
+                            Color.fromARGB(255, 48, 52, 63)
+                          ])),
+                    ),
+                    ListTile(
+                      title: const Text('Tracker'),
+                      onTap: () {
+                        _showConfig(false);
+                        _showHistory(false);
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      title: const Text('Configure'),
+                      onTap: () {
+                        _showHistory(false);
+                        _showConfig(true);
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                        title: const Text('History'),
+                        onTap: () {
+                          _showConfig(false);
+                          _showHistory(true);
+                          Navigator.pop(context);
+                        })
+                  ],
+                ),
+              ),
+              body: _isShowingConfig
+                  ? ConfigurationUI(_config)
+                  : _isShowingHistory
+                      ? HistoryUI()
+                      : FutureBuilder(
+                          future: Configuration.readConfig().then((value) {
+                            _config = value;
+                          }),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return TrackerUI(_config);
+                            } else if (snapshot.hasError) {
+                              return Center(child: Text("Could not load data"));
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          })),
         ));
   }
 }
