@@ -5,19 +5,7 @@ import 'package:stattrack/trackerUI.dart';
 import 'package:stattrack/historyUI.dart';
 import 'package:stattrack/data.dart';
 import 'package:share_plus/share_plus.dart';
-
-final Map<int, Color> color = {
-  50: Color.fromRGBO(4, 131, 184, .1),
-  100: Color.fromRGBO(4, 131, 184, .2),
-  200: Color.fromRGBO(4, 131, 184, .3),
-  300: Color.fromRGBO(4, 131, 184, .4),
-  400: Color.fromRGBO(4, 131, 184, .5),
-  500: Color.fromRGBO(4, 131, 184, .6),
-  600: Color.fromRGBO(4, 131, 184, .7),
-  700: Color.fromRGBO(4, 131, 184, .8),
-  800: Color.fromRGBO(4, 131, 184, .9),
-  900: Color.fromRGBO(4, 131, 184, 1),
-};
+import 'dart:math';
 
 void main() {
   runApp(MyApp());
@@ -56,8 +44,6 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  MaterialColor main = MaterialColor(0xff28AFB0, color);
-  MaterialColor dark = MaterialColor(0xff30343F, color);
 
   // This widget is the root of your application.
   @override
@@ -66,7 +52,7 @@ class _MyAppState extends State<MyApp> {
     print("Fields: " + _config.fields.length.toString());
     return MaterialApp(
         title: 'Stat Track',
-        theme: ThemeData(primarySwatch: main),
+        theme: ThemeData(primarySwatch: generateMaterialColor(Color(0xff28AFB0))),
         home: Builder(
           builder: (context) => Scaffold(
               appBar: AppBar(
@@ -89,7 +75,7 @@ class _MyAppState extends State<MyApp> {
                   padding: EdgeInsets.zero,
                   children: [
                     const DrawerHeader(
-                      child: Text('Hello!'),
+                      child: Text(''),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.topLeft,
@@ -145,4 +131,38 @@ class _MyAppState extends State<MyApp> {
                           })),
         ));
   }
+
+  // Source: https://gist.github.com/moritzmorgenroth/5602102d855efde2d686b0c7c5a095ad
+  MaterialColor generateMaterialColor(Color color) {
+    return MaterialColor(color.value, {
+      50: tintColor(color, 0.9),
+      100: tintColor(color, 0.8),
+      200: tintColor(color, 0.6),
+      300: tintColor(color, 0.4),
+      400: tintColor(color, 0.2),
+      500: color,
+      600: shadeColor(color, 0.1),
+      700: shadeColor(color, 0.2),
+      800: shadeColor(color, 0.3),
+      900: shadeColor(color, 0.4),
+    });
+  }
+
+  int tintValue(int value, double factor) =>
+      max(0, min((value + ((255 - value) * factor)).round(), 255));
+
+  Color tintColor(Color color, double factor) => Color.fromRGBO(
+      tintValue(color.red, factor),
+      tintValue(color.green, factor),
+      tintValue(color.blue, factor),
+      1);
+
+  int shadeValue(int value, double factor) =>
+      max(0, min(value - (value * factor).round(), 255));
+
+  Color shadeColor(Color color, double factor) => Color.fromRGBO(
+      shadeValue(color.red, factor),
+      shadeValue(color.green, factor),
+      shadeValue(color.blue, factor),
+      1);
 }

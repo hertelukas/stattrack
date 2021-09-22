@@ -108,7 +108,29 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Create a new Item'),
+          title: const Text('Create a new item'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.info_outline),
+              onPressed: () {
+                showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: Text("Adding a new tracker"),
+                    content: const Text(
+                        "Add a new tracker. Use these trackers to keep track of everything you like. " +
+                            "Furthermore you can use a Checkbox as filter for the analysis of your data."),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ],
         ),
         body: Form(
             key: _formKey,
