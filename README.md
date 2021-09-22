@@ -16,6 +16,9 @@ Examples to track:
 - Wellbeing
 - ...
 
+## Analyse your Data
+You can analyse your Stat Track data on your computer with the <a href='https://github.com/hertelukas/stattrack-analyser'>Stat Track Analyser</a>. A browser version is planned.
+
 ### Colors
 - Main: #28AFB0
 - Secondary: #9191E9
