@@ -45,16 +45,29 @@ class Data {
   static Data singleton = Data();
   static String? path;
 
-  List<_Entry> entries;
+  List<Entry> entries;
 
   void addEntry(Map<String, Object> fields) {
-    entries.add(_Entry(DateTime.now(), fields));
+    entries.add(Entry(DateTime.now(), fields));
     writeData(this);
     print(jsonEncode(this));
   }
 
+  void addEntryAt(int index, Entry entry) {
+    entries.insert(index, entry);
+    writeData(this);
+  }
 
-  Data() : entries = List<_Entry>.empty(growable: true);
+  void remove(int index) {
+    entries.removeAt(index);
+    writeData(this);
+  }
+
+  Entry getAt(int index){
+    return entries.elementAt(index);
+  }
+
+  Data() : entries = List<Entry>.empty(growable: true);
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
@@ -62,13 +75,13 @@ class Data {
 }
 
 @JsonSerializable()
-class _Entry {
+class Entry {
   DateTime date;
   Map<String, Object> fields;
 
-  _Entry(this.date, this.fields);
+  Entry(this.date, this.fields);
 
-  factory _Entry.fromJson(Map<String, dynamic> json) => _$_EntryFromJson(json);
+  factory Entry.fromJson(Map<String, dynamic> json) => _$EntryFromJson(json);
 
-  Map<String, dynamic> toJson() => _$_EntryToJson(this);
+  Map<String, dynamic> toJson() => _$EntryToJson(this);
 }

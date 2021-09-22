@@ -38,7 +38,7 @@ class _ConfigurationUIState extends State<ConfigurationUI> {
                     config.removeField(index);
                   });
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: const Text("Removed item"),
+                    content: const Text("Removed tracker"),
                     action: SnackBarAction(
                       label: "Undo",
                       onPressed: () {
