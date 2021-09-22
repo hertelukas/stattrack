@@ -46,8 +46,15 @@ class Configuration {
 
   Configuration(this.fields);
 
-  void addFieldByName(String name, FieldType type) {
+  // Returns whether the field is unique. If not, the field won't get added
+  bool addFieldByName(String name, FieldType type) {
+    for (int i = 0; i < fields.length; i++) {
+      if (fields.elementAt(i).name == name) {
+        return false;
+      }
+    }
     addField(Field(name, type));
+    return true;
   }
 
   void addField(Field field) {

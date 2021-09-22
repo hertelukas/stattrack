@@ -90,12 +90,15 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
 
   _AddTrackerFormState(this.config);
 
-  void _addField(String name, FieldType type) {
+  bool _addField(String name, FieldType type) {
+    bool result = true;
     setState(() {
-      config.addFieldByName(name, type);
+      result = config.addFieldByName(name, type);
       //Notify the parent to update its view
       this.widget.callback();
     });
+
+    return result;
   }
 
   @override
@@ -169,8 +172,24 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
                     child: ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
-                      _addField(controller.text, dropdownValue);
-                      Navigator.pop(context);
+                      if (_addField(controller.text, dropdownValue)) {
+                        Navigator.pop(context);
+                      } else {
+                        showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: const Text("Provide a unique name"),
+                                  content: const Text(
+                                      "A tracker with this name already exists. Try a new name or delete the old tracker."),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Close'),
+                                      child: const Text('Close'),
+                                    )
+                                  ],
+                                ));
+                      }
                     }
                   },
                   child: const Text('Add'),
