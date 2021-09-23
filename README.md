@@ -17,7 +17,7 @@ Examples to track:
 - ...
 
 ## Analyse your Data
-You can analyse your Stat Track data on your computer with the <a href='https://github.com/hertelukas/stattrack-analyser'>Stat Track Analyser</a>. 
+You can analyse your Stat Track data on your computer with the <a href='https://github.com/hertelukas/stattrack-analyser'>Stat Track Analyser</a> or use the <a href='https://stattrack.lukas-hertel.de/'>online analyser</a>.
 
 ## Screenshots
 <p>
