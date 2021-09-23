@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stattrack/about.dart';
 import 'package:stattrack/configuration.dart';
 import 'package:stattrack/configurationUI.dart';
 import 'package:stattrack/trackerUI.dart';
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
               }
             });
       case View.About:
-        return Text("nice");
+        return AboutUI();
     }
   }
 
