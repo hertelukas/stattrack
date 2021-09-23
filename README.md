@@ -20,9 +20,9 @@ Examples to track:
 You can analyse your Stat Track data on your computer with the <a href='https://github.com/hertelukas/stattrack-analyser'>Stat Track Analyser</a>. 
 
 ## Screenshots
-![Track](/images/screenshot_track?raw=true)
-![Configurate](/images/screenshot_config?raw=true)
-![History](/images/screenshot_history?raw=true)
+![Track](/images/screenshot_track.jpg?raw=true)
+![Configurate](/images/screenshot_config.jpg?raw=true)
+![History](/images/screenshot_history.jpg?raw=true)
 
 ### Colors
 - Main: #28AFB0
