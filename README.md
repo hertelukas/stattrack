@@ -20,9 +20,11 @@ Examples to track:
 You can analyse your Stat Track data on your computer with the <a href='https://github.com/hertelukas/stattrack-analyser'>Stat Track Analyser</a>. 
 
 ## Screenshots
-<img src="images/screenshot_track.jpg?raw=true" alt="track" width="200">
+<p>
+<img src="images/screenshot_track.jpg?raw=true" alt="track" width="200"> 
 <img src="images/screenshot_config.jpg?raw=true" alt="config" width="200">
 <img src="images/screenshot_history.jpg?raw=true" alt="history" width="200">
+</p>
 
 
 
