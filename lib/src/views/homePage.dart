@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                           ])),
                     ),
                     ListTile(
-                      title: const Text('Tracker'),
+                      title: Text(AppLocalizations.of(context)!.tracker),
                       onTap: () {
                         _setView(View.Tracker);
                         Navigator.pop(context);
