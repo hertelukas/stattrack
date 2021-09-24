@@ -19,6 +19,7 @@
 *.iws
 .idea/
 
+
 # Visual Studio Code related
 .vscode/
 
@@ -26,6 +27,7 @@
 **/doc/api/
 .dart_tool/
 .flutter-plugins
+.flutter-plugins-dependencies
 .packages
 .pub-cache/
 .pub/
