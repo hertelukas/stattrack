@@ -27,7 +27,7 @@ You can analyse your Stat Track data on your computer with the <a href='https://
 </p>
 
 ## Contributing
-Thanks for helping with this project! To contribute, please read [CONTRIBUTE.md](.github/contribute.md)
+Thanks for helping with this project! To contribute, please read [this](.github/CONTRIBUTING.md).
 
 
 ### Colors
