@@ -26,6 +26,8 @@ You can analyse your Stat Track data on your computer with the <a href='https://
 <img src="images/screenshot_history.jpg?raw=true" alt="history" width="200">
 </p>
 
+## Contributing
+Thanks for helping with this project! To contribute, please read [CONTRIBUTE.md](.github/contribute.md)
 
 
 ### Colors
