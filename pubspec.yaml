@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   json_annotation: any
   path_provider: any
 
@@ -50,6 +52,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+
+  # This is needed for localization
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   # assets:

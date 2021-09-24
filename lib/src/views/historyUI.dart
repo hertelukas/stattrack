@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stattrack/src/business_logic/models/data.dart';
 import 'package:intl/intl.dart';
+import 'package:stattrack/src/business_logic/models/data.dart';
 
 class HistoryUI extends StatefulWidget {
   @override
