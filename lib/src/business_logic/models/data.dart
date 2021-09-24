@@ -76,6 +76,8 @@ class Data {
   Map<String, dynamic> toJson() => _$DataToJson(this);
 }
 
+// Represents a single field
+// A new instance of this class gets created when the user clicks 'save'
 @JsonSerializable()
 class Entry {
   DateTime date;

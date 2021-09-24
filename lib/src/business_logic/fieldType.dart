@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 part 'fieldType.g.dart';
 
+// Add new types of fields here
 @JsonSerializable()
 class FieldType {
   // Static types of fields
@@ -35,6 +36,7 @@ class FieldType {
 
   FieldType(this.name, this.id);
 
+  // Get a visual representation of an track input method
   Widget getVisualRepresentation(Map<String, Object> fields, String name) {
     return _CustomInput(fields, name, this);
   }
