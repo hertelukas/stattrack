@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:stattrack/configuration.dart';
-import 'package:stattrack/data.dart';
+import 'package:stattrack/src/business_logic/models/configuration.dart';
+import 'package:stattrack/src/business_logic/models/data.dart';
 
 class TrackerUI extends StatefulWidget {
   final Configuration config;

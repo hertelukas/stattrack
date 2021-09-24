@@ -83,6 +83,7 @@ build/
 bin/
 gen/
 out/
+*.g.dart
 
 # Gradle files
 .gradle/

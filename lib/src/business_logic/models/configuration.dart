@@ -2,13 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:stattrack/fieldType.dart';
+import 'package:stattrack/src/business_logic/fieldType.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 import 'dart:async';
 
 part 'configuration.g.dart';
 
+//This class represents and saves the
+//different trackers a user added
 @JsonSerializable()
 class Configuration {
   static Future<String> get _localPath async {

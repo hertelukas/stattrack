@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:stattrack/about.dart';
-import 'package:stattrack/configuration.dart';
-import 'package:stattrack/configurationUI.dart';
-import 'package:stattrack/trackerUI.dart';
-import 'package:stattrack/historyUI.dart';
-import 'package:stattrack/data.dart';
+import 'package:stattrack/src/views/about.dart';
+import 'package:stattrack/src/business_logic/models/configuration.dart';
+import 'package:stattrack/src/views/configurationUI.dart';
+import 'package:stattrack/src/views/trackerUI.dart';
+import 'package:stattrack/src/views/historyUI.dart';
+import 'package:stattrack/src/business_logic/models/data.dart';
 import 'package:share_plus/share_plus.dart';
 import 'dart:math';
 
-import 'package:stattrack/view.dart';
+import 'package:stattrack/src/views/view.dart';
 
 void main() {
   runApp(MyApp());

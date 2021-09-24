@@ -7,6 +7,8 @@ import 'dart:async';
 
 part 'data.g.dart';
 
+// This class represents all data saved by the user
+// It can be exported as JSON
 @JsonSerializable()
 class Data {
   static Future<String> get _localPath async {
@@ -63,7 +65,7 @@ class Data {
     writeData(this);
   }
 
-  Entry getAt(int index){
+  Entry getAt(int index) {
     return entries.elementAt(index);
   }
 

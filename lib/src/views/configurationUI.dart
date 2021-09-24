@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stattrack/configuration.dart';
-import 'package:stattrack/fieldType.dart';
+import 'package:stattrack/src/business_logic/models/configuration.dart';
+import 'package:stattrack/src/business_logic/fieldType.dart';
 
 class ConfigurationUI extends StatefulWidget {
   final Configuration config;
