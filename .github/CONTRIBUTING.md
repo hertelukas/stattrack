@@ -11,7 +11,7 @@ If not, feel free to [create a new one](https://github.com/hertelukas/stattrack/
 1. Fork the repository
 2. Setup Flutter, see their [install guide](https://flutter.dev/docs/get-started/install)
 3. The package uses [json_annotation](https://pub.dev/packages/json_annotation), which generates automatic serializers/deserializers for JSON. 
-Run `flutter pub run build_runner watch` in the projects root to generate the necessary files.
+Run `flutter pub run build_runner watch` in the projects root to generate the necessary files. For more information, see [here](https://flutter.dev/docs/development/data-and-backend/json#running-the-code-generation-utility).
 4. Start working on your changes!
 
 It is recommended to fetch the current main branch regularly to avoid merge conflicts.
