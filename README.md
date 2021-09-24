@@ -19,6 +19,89 @@ Examples to track:
 ## Analyse your Data
 You can analyse your Stat Track data on your computer with the <a href='https://github.com/hertelukas/stattrack-analyser'>Stat Track Analyser</a> or use the <a href='https://stattrack.lukas-hertel.de/'>online analyser</a>.
 
+Such a json file might look something like this:
+<details>
+  <summary>Click me!</summary>
+  
+```json
+{
+  "entries": [
+    {
+      "date": "2021-09-20T17:43:58.168673",
+      "fields": {
+        "Warmup": true,
+        "Effectiveness": 7.0,
+        "Squats": 40,
+        "Push-ups": 25,
+        "Comment": "Nice workout"
+      }
+    },
+    {
+      "date": "2021-09-21T17:45:14.472420",
+      "fields": {
+        "Warmup": true,
+        "Effectiveness": 8.0,
+        "Squats": 42,
+        "Push-ups": 28,
+        "Comment": "Hard workout, but nice progress"
+      }
+    },
+    {
+      "date": "2021-09-22T16:54:52.331305",
+      "fields": {
+        "Warmup": false,
+        "Effectiveness": 4.0,
+        "Squats": 36,
+        "Push-ups": 18,
+        "Comment": "Only quick warm up, no time today"
+      }
+    },
+    {
+      "date": "2021-09-23T18:57:07.910150",
+      "fields": {
+        "Warmup": true,
+        "Effectiveness": 7.0,
+        "Squats": 48,
+        "Push-ups": 20,
+        "Comment": "Good workout, squats went very well"
+      }
+    },
+    {
+      "date": "2021-09-25T16:00:36.702878",
+      "fields": {
+        "Warmup": true,
+        "Effectiveness": 9.0,
+        "Squats": 50,
+        "Push-ups": 30,
+        "Comment": "\"Pause\" was worth it"
+      }
+    },
+    {
+      "date": "2021-09-26T17:03:48.516354",
+      "fields": {
+        "Warmup": true,
+        "Effectiveness": 7.0,
+        "Squats": 42,
+        "Push-ups": 32,
+        "Comment": "No strength in the legs today"
+      }
+    },
+    {
+      "date": "2021-09-27T18:05:48.516354",
+      "fields": {
+        "Warmup": true,
+        "Effectiveness": 7.0,
+        "Squats": 40,
+        "Push-ups": 32,
+        "Sleep": 8,
+        "Comment": "I think I should track my sleep"
+      }
+    }
+  ]
+}
+```
+</details>
+
 ## Screenshots
 <p>
 <img src="images/screenshot_track.jpg?raw=true" alt="track" width="200"> 
