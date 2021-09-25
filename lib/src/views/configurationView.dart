@@ -3,19 +3,19 @@ import 'package:stattrack/src/business_logic/models/configuration.dart';
 import 'package:stattrack/src/business_logic/fieldType.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ConfigurationUI extends StatefulWidget {
+class ConfigurationView extends StatefulWidget {
   final Configuration config;
 
-  ConfigurationUI(this.config);
+  ConfigurationView(this.config);
 
   @override
-  _ConfigurationUIState createState() => _ConfigurationUIState(config);
+  _ConfigurationViewState createState() => _ConfigurationViewState(config);
 }
 
-class _ConfigurationUIState extends State<ConfigurationUI> {
+class _ConfigurationViewState extends State<ConfigurationView> {
   final Configuration config;
 
-  _ConfigurationUIState(this.config);
+  _ConfigurationViewState(this.config);
 
   void callback() {
     setState(() {});
