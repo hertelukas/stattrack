@@ -1,6 +1,25 @@
 {
+  "about": "About",
+  "aboutSection1": "You can track everything you want with this app. Just select \"Configure\" and tap the plus sign. Choose your names wisely, mixing data types can result in issues when analysing the data.",
+  "aboutSection2": "Stat Track is open source! If you have any wishes or suggestions, just open a new issue on Github.",
   "tracker": "Tracker",
-  "@tracker": {
-    "description": "blabla"
-  }
+  "removed_tracker": "Removed tracker",
+  "undo": "Undo",
+  "create_new_item": "Create new item",
+  "adding_new_tracker": "Adding a new tracker",
+  "add_tracker_help": "Add a new tracker. Use these trackers to keep track of everything you like. You can use checkboxes or text fields also as filter for your data!",
+  "ok": "Ok",
+  "enter_name": "Please enter a name",
+  "stat_name_hint": "Enter a stat to track",
+  "name_exists": "A tracker with this name already exists. Try a new name or delete the old tracker.",
+  "unique_name": "Provide a unique name",
+  "close": "Close",
+  "add": "Add",
+  "entry_removed": "Removed entry",
+  "could_not_load_data": "Could not load data",
+  "configure": "Configure",
+  "history": "History",
+  "empty_track_help": "Add items to track in the config menu!",
+  "save": "Save",
+  "saved": "Saved entry!"
 }

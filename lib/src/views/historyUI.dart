@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:stattrack/src/business_logic/models/data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HistoryUI extends StatefulWidget {
   @override
@@ -8,11 +9,12 @@ class HistoryUI extends StatefulWidget {
 }
 
 class _HistoryUIState extends State<HistoryUI> {
-  final hourFormat = DateFormat.Hm();
-  final dateFormat = DateFormat.yMEd();
 
   @override
   Widget build(BuildContext context) {
+    DateFormat hourFormat = DateFormat.Hm(AppLocalizations.of(context)!.localeName);
+    DateFormat dateFormat = DateFormat.yMEd(AppLocalizations.of(context)!.localeName);
+
     return ListView.builder(
         itemCount: Data.singleton.entries.length,
         itemBuilder: (BuildContext context, int index) {
@@ -24,9 +26,9 @@ class _HistoryUIState extends State<HistoryUI> {
                   Data.singleton.remove(index);
                 });
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: const Text("Removed entry"),
+                  content: Text(AppLocalizations.of(context)!.entry_removed),
                   action: SnackBarAction(
-                    label: "Undo",
+                    label: AppLocalizations.of(context)!.undo,
                     onPressed: () {
                       setState(() {
                         Data.singleton.addEntryAt(index, entry);
@@ -40,13 +42,14 @@ class _HistoryUIState extends State<HistoryUI> {
               ),
               child: ListTile(
                   title: Text(dateFormat
-                          .format(Data.singleton.entries[index].date) +
+                      .format(Data.singleton.entries[index].date) +
                       " - " +
                       hourFormat.format(Data.singleton.entries[index].date)),
                   onTap: () {
                     showDialog<String>(
                         context: context,
-                        builder: (BuildContext context) => AlertDialog(
+                        builder: (BuildContext context) =>
+                            AlertDialog(
                                 title: Text(hourFormat.format(
                                     Data.singleton.entries[index].date)),
                                 content: Container(
@@ -60,7 +63,7 @@ class _HistoryUIState extends State<HistoryUI> {
                                       List<String> rows = Data.singleton
                                           .entries[index].fields.entries
                                           .map((e) =>
-                                              e.key + ": " + e.value.toString())
+                                      e.key + ": " + e.value.toString())
                                           .toList();
                                       return ListTile(
                                         title: Text(rows[nestedIndex]),
@@ -71,8 +74,10 @@ class _HistoryUIState extends State<HistoryUI> {
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>
-                                        Navigator.pop(context, 'Close'),
-                                    child: const Text('Close'),
+                                        Navigator.pop(context, AppLocalizations
+                                            .of(context)!.close),
+                                    child: Text(AppLocalizations.of(context)!
+                                        .close),
                                   )
                                 ]));
                   }));

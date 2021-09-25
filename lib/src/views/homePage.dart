@@ -41,7 +41,9 @@ class _HomePageState extends State<HomePage> {
               if (snapshot.connectionState == ConnectionState.done) {
                 return TrackerUI(_config);
               } else if (snapshot.hasError) {
-                return Center(child: Text("Could not load data"));
+                return Center(
+                    child: Text(
+                        AppLocalizations.of(context)!.could_not_load_data));
               } else {
                 return Center(child: CircularProgressIndicator());
               }
@@ -67,7 +69,7 @@ class _HomePageState extends State<HomePage> {
     return Builder(
         builder: (context) => Scaffold(
               appBar: AppBar(
-                title: Text(_currentView.name),
+                title: Text(_currentView.getName(context)),
                 actions: <Widget>[
                   IconButton(
                     icon: Icon(Icons.share),
@@ -100,20 +102,20 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                     ListTile(
-                      title: const Text('Configure'),
+                      title: Text(AppLocalizations.of(context)!.configure),
                       onTap: () {
                         _setView(View.Configuration);
                         Navigator.pop(context);
                       },
                     ),
                     ListTile(
-                        title: const Text('History'),
+                        title: Text(AppLocalizations.of(context)!.history),
                         onTap: () {
                           _setView(View.History);
                           Navigator.pop(context);
                         }),
                     ListTile(
-                      title: const Text('About'),
+                      title: Text(AppLocalizations.of(context)!.about),
                       onTap: () {
                         _setView(View.About);
                         Navigator.pop(context);

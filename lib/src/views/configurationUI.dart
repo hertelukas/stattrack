@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stattrack/src/business_logic/models/configuration.dart';
 import 'package:stattrack/src/business_logic/fieldType.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ConfigurationUI extends StatefulWidget {
   final Configuration config;
@@ -38,9 +39,10 @@ class _ConfigurationUIState extends State<ConfigurationUI> {
                     config.removeField(index);
                   });
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: const Text("Removed tracker"),
+                    content:
+                        Text(AppLocalizations.of(context)!.removed_tracker),
                     action: SnackBarAction(
-                      label: "Undo",
+                      label: AppLocalizations.of(context)!.undo,
                       onPressed: () {
                         setState(() {
                           config.addFieldAt(field, index);
@@ -111,7 +113,7 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Create a new item'),
+          title: Text(AppLocalizations.of(context)!.create_new_item),
           actions: <Widget>[
             IconButton(
               icon: Icon(Icons.info_outline),
@@ -119,14 +121,15 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
                 showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
-                    title: Text("Adding a new tracker"),
-                    content: const Text(
-                        "Add a new tracker. Use these trackers to keep track of everything you like. " +
-                            "Furthermore you can use a Checkbox as filter for the analysis of your data."),
+                    title:
+                        Text(AppLocalizations.of(context)!.adding_new_tracker),
+                    content:
+                        Text(AppLocalizations.of(context)!.add_tracker_help),
                     actions: <Widget>[
                       TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
+                        onPressed: () => Navigator.pop(
+                            context, AppLocalizations.of(context)!.ok),
+                        child: Text(AppLocalizations.of(context)!.ok),
                       ),
                     ],
                   ),
@@ -157,12 +160,12 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
                           });
                         })),
                 TextFormField(
-                  decoration: const InputDecoration(
-                    hintText: 'Enter a stat to track',
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.stat_name_hint,
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a name';
+                      return AppLocalizations.of(context)!.enter_name;
                     }
                     return null;
                   },
@@ -178,21 +181,20 @@ class _AddTrackerFormState extends State<_AddTrackerForm> {
                         showDialog<String>(
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
-                                  title: const Text("Provide a unique name"),
-                                  content: const Text(
-                                      "A tracker with this name already exists. Try a new name or delete the old tracker."),
+                                  title: Text(AppLocalizations.of(context)!.unique_name),
+                                  content: Text(AppLocalizations.of(context)!.name_exists),
                                   actions: <Widget>[
                                     TextButton(
                                       onPressed: () =>
-                                          Navigator.pop(context, 'Close'),
-                                      child: const Text('Close'),
+                                          Navigator.pop(context, AppLocalizations.of(context)!.close),
+                                      child: Text(AppLocalizations.of(context)!.close),
                                     )
                                   ],
                                 ));
                       }
                     }
                   },
-                  child: const Text('Add'),
+                  child: Text(AppLocalizations.of(context)!.add),
                 ))
               ],
             )));

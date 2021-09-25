@@ -1,3 +1,25 @@
 {
-  "tracker": "Tracker"
+  "tracker": "Tracker",
+  "aboutSection1": "Mit Stat Track kannst du über alles Statistiken erstellen. Wähle einfach \"Bearbeiten\" und füge neue Felder hinzu. Wähle die Feldernamen mit Bedacht, legst du verschiedene Arten von Feldern mit dem gleichen Namen an kann das bei der Analyse der Daten schwierig werden.",
+  "aboutSection2": "Stat Track ist Open Source! Hast du Wünsche oder Vorschläge, eröffne einfach ein neues Issue auf Github",
+  "about": "Informationen",
+  "removed_tracker": "Tracker entfernt",
+  "undo": "Rückgängig machen",
+  "create_new_item": "Tracker hinzufügen",
+  "adding_new_tracker": "Neuen Tracker anlegen",
+  "add_tracker_help": "Füge einen neuen Tracker hinzu. Benutze diese Tracker um alles mögliche zu notieren. Du kannst Ankreuz- und Textfelder auch als Filter für die Analyse deiner Daten verwenden.",
+  "ok": "Okay",
+  "enter_name": "Bitte bennene deinen Tracker",
+  "stat_name_hint": "Name für deinen neuen Tracker",
+  "name_exists": "Ein Tracker mit diesem Namen existiert bereits. Versuche einen anderen Namen oder lösche den alten Tracker.",
+  "unique_name": "Tracker existiert bereits",
+  "close": "Schliessen",
+  "add": "Hinzufügen",
+  "entry_removed": "Eintrag gelöscht",
+  "could_not_load_data": "Daten konnten nicht geladen werden",
+  "configure": "Bearbeiten",
+  "history": "Einträge",
+  "empty_track_help": "Füge neue Tracker über das Bearbeitungsmenu hinzu!",
+  "save": "Speichern",
+  "saved": "Eintrag gespeichert!"
 }

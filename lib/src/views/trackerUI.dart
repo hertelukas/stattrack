@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stattrack/src/business_logic/models/configuration.dart';
 import 'package:stattrack/src/business_logic/models/data.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TrackerUI extends StatefulWidget {
   final Configuration config;
@@ -28,7 +29,7 @@ class _TrackerUIState extends State<TrackerUI> {
   Widget build(BuildContext context) {
     if (config.fields.isEmpty) {
       return Center(
-        child: Text("Add items to track in the config menu!"),
+        child: Text(AppLocalizations.of(context)!.empty_track_help),
       );
     }
 
@@ -45,9 +46,9 @@ class _TrackerUIState extends State<TrackerUI> {
             onPressed: () {
               _save();
               ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: const Text("Saved entry!")));
+                  .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.saved)));
             },
-            child: const Text("Save"),
+            child: Text(AppLocalizations.of(context)!.save),
           ));
         }
       },
