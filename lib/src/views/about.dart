@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AboutUI extends StatelessWidget {
+class AboutView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(

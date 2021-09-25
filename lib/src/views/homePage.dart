@@ -6,9 +6,9 @@ import 'package:stattrack/src/business_logic/models/configuration.dart';
 import 'package:stattrack/src/business_logic/models/data.dart';
 import 'package:stattrack/src/views/about.dart';
 import 'package:stattrack/src/views/analyseView.dart';
-import 'package:stattrack/src/views/configurationUI.dart';
-import 'package:stattrack/src/views/historyUI.dart';
-import 'package:stattrack/src/views/trackerUI.dart';
+import 'package:stattrack/src/views/configurationView.dart';
+import 'package:stattrack/src/views/historyView.dart';
+import 'package:stattrack/src/views/trackerView.dart';
 import 'package:stattrack/src/views/view.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,9 +30,9 @@ class _HomePageState extends State<HomePage> {
   Widget _getView() {
     switch (_currentView) {
       case View.Configuration:
-        return ConfigurationUI(_config);
+        return ConfigurationView(_config);
       case View.History:
-        return HistoryUI();
+        return HistoryView();
       case View.Tracker:
         return FutureBuilder(
             future: Configuration.readConfig().then((value) {
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
               }
             });
       case View.About:
-        return AboutUI();
+        return AboutView();
       case View.Analyse:
         return AnalyseView();
     }

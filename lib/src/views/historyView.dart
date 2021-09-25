@@ -3,12 +3,12 @@ import 'package:intl/intl.dart';
 import 'package:stattrack/src/business_logic/models/data.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class HistoryUI extends StatefulWidget {
+class HistoryView extends StatefulWidget {
   @override
-  _HistoryUIState createState() => _HistoryUIState();
+  _HistoryViewState createState() => _HistoryViewState();
 }
 
-class _HistoryUIState extends State<HistoryUI> {
+class _HistoryViewState extends State<HistoryView> {
 
   @override
   Widget build(BuildContext context) {
