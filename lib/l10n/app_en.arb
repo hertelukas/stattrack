@@ -21,5 +21,6 @@
   "history": "History",
   "empty_track_help": "Add items to track in the config menu!",
   "save": "Save",
-  "saved": "Saved entry!"
+  "saved": "Saved entry!",
+  "analyse": "Analyse"
 }

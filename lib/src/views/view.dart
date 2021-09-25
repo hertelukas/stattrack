@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // Enum that represents all available views
-enum View { Configuration, History, Tracker, About }
+enum View { Configuration, History, Tracker, About, Analyse }
 
 extension NameGenerator on View {
   // Returns the name of the view that
@@ -17,6 +17,8 @@ extension NameGenerator on View {
         return AppLocalizations.of(context)!.tracker;
       case View.About:
         return AppLocalizations.of(context)!.about;
+      case View.Analyse:
+        return AppLocalizations.of(context)!.analyse;
     }
   }
 }

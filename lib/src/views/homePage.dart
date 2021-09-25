@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:stattrack/src/business_logic/models/configuration.dart';
 import 'package:stattrack/src/business_logic/models/data.dart';
 import 'package:stattrack/src/views/about.dart';
+import 'package:stattrack/src/views/analyseView.dart';
 import 'package:stattrack/src/views/configurationUI.dart';
 import 'package:stattrack/src/views/historyUI.dart';
 import 'package:stattrack/src/views/trackerUI.dart';
@@ -50,6 +51,8 @@ class _HomePageState extends State<HomePage> {
             });
       case View.About:
         return AboutUI();
+      case View.Analyse:
+        return AnalyseView();
     }
   }
 
@@ -105,6 +108,13 @@ class _HomePageState extends State<HomePage> {
                       title: Text(AppLocalizations.of(context)!.configure),
                       onTap: () {
                         _setView(View.Configuration);
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context)!.analyse),
+                      onTap: () {
+                        _setView(View.Analyse);
                         Navigator.pop(context);
                       },
                     ),
