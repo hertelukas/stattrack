@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:stattrack/src/business_logic/models/configuration.dart';
 import 'package:stattrack/src/business_logic/models/data.dart';
 import 'package:stattrack/src/views/about.dart';
+import 'package:stattrack/src/views/analyseView.dart';
 import 'package:stattrack/src/views/configurationView.dart';
 import 'package:stattrack/src/views/historyView.dart';
 import 'package:stattrack/src/views/trackerView.dart';
@@ -50,6 +50,8 @@ class _HomePageState extends State<HomePage> {
             });
       case View.About:
         return AboutView();
+      case View.Analyse:
+        return AnalyseView();
     }
   }
 
@@ -105,6 +107,13 @@ class _HomePageState extends State<HomePage> {
                       title: Text(AppLocalizations.of(context)!.configure),
                       onTap: () {
                         _setView(View.Configuration);
+                        Navigator.pop(context);
+                      },
+                    ),
+                    ListTile(
+                      title: Text(AppLocalizations.of(context)!.analyse),
+                      onTap: () {
+                        _setView(View.Analyse);
                         Navigator.pop(context);
                       },
                     ),

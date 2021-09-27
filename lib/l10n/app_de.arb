@@ -21,5 +21,8 @@
   "history": "Einträge",
   "empty_track_help": "Füge neue Tracker über das Bearbeitungsmenu hinzu!",
   "save": "Speichern",
-  "saved": "Eintrag gespeichert!"
+  "saved": "Eintrag gespeichert!",
+  "analyse": "Analyse",
+  "no_fields": "Keine Felder zum analysieren!",
+  "set_range": "Daten eingrenzen"
 }
