@@ -69,6 +69,32 @@ class Data {
     return entries.elementAt(index);
   }
 
+  // Returns all entries between start and end
+  List<Entry> getBetween(DateTime start, DateTime end) {
+    List<Entry> result = new List.empty(growable: true);
+    for (var entry in entries) {
+      if (entry.date.compareTo(start) >= 0 && entry.date.compareTo(end) < 0) {
+        result.add(entry);
+      }
+    }
+
+    return result;
+  }
+
+  // Returns all keys that hold numbers
+  Set<String> getNumKeys(){
+    Set<String> result = new Set();
+    for (var entry in entries) {
+      for (var key in entry.fields.keys) {
+        if(entry.fields[key] is num){
+          result.add(key);
+        }
+      }
+    }
+
+    return result;
+  }
+
   Data() : entries = List<Entry>.empty(growable: true);
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
