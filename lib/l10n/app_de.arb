@@ -23,5 +23,6 @@
   "save": "Speichern",
   "saved": "Eintrag gespeichert!",
   "analyse": "Analyse",
-  "no_fields": "Keine Felder zum analysieren!"
+  "no_fields": "Keine Felder zum analysieren!",
+  "set_range": "Daten eingrenzen"
 }
