@@ -10,23 +10,16 @@ class AnalyseView extends StatefulWidget {
 }
 
 class _AnalyseViewState extends State<AnalyseView> {
-  String key = "";
-  List<charts.Series<Entry, DateTime>> series = List.empty();
-  List<String> keys = List.empty();
+  List<charts.Series<Entry, DateTime>>? series = List.empty();
   DateTimeRange? timeRange;
 
   _AnalyseViewState() {
-    keys = Data.singleton.getNumKeys().toList();
-    if (keys.isEmpty) {
-      return;
-    }
-    key = keys[0];
-    series = _convertToChart(timeRange, key);
+    series = _convertToChart(timeRange);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (keys.isEmpty) {
+    if (series == null) {
       return Center(child: Text(AppLocalizations.of(context)!.no_fields));
     }
 
@@ -37,20 +30,6 @@ class _AnalyseViewState extends State<AnalyseView> {
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
       children: [
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          DropdownButton<String>(
-              value: key,
-              items: keys.map<DropdownMenuItem<String>>((String tempKey) {
-                return DropdownMenuItem<String>(
-                  value: tempKey,
-                  child: Text(tempKey),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  key = newValue!;
-                  series = _convertToChart(timeRange, key);
-                });
-              }),
           TextButton(
               onPressed: () async {
                 timeRange = await showDateRangePicker(
@@ -58,7 +37,7 @@ class _AnalyseViewState extends State<AnalyseView> {
                     firstDate: DateTime(2020),
                     lastDate: DateTime(2100));
                 setState(() {
-                  series = _convertToChart(timeRange, key);
+                  series = _convertToChart(timeRange);
                 });
               },
               child: Text(timeRange == null
@@ -71,26 +50,41 @@ class _AnalyseViewState extends State<AnalyseView> {
             padding: const EdgeInsets.all(8),
             height: MediaQuery.of(context).size.height / 3,
             child: charts.TimeSeriesChart(
-              series,
+              series!,
               animate: true,
+              behaviors: [
+                new charts.SeriesLegend(
+                    position: charts.BehaviorPosition.bottom)
+              ],
               dateTimeFactory: const charts.LocalDateTimeFactory(),
             ))
       ],
     );
   }
 
-  static List<charts.Series<Entry, DateTime>> _convertToChart(
-      DateTimeRange? range, String key) {
+  static List<charts.Series<Entry, DateTime>>? _convertToChart(
+      DateTimeRange? range) {
+    Set<String> keys = Data.singleton.getNumKeys();
     List<Entry> entries;
+
+    if (keys.isEmpty) {
+      return null;
+    }
     if (range == null) {
       entries = Data.singleton.entries;
     } else {
       entries = Data.singleton.getBetween(range.start, range.end);
     }
-    return [
-      new charts.Series<Entry, DateTime>(
-          id: 'History',
-          colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
+
+    List<charts.Series<Entry, DateTime>> result = List.empty(growable: true);
+
+    int i = 0;
+    for (var key in keys) {
+      var temp = charts.MaterialPalette.blue.makeShades(keys.length)[i];
+      result.add(new charts.Series<Entry, DateTime>(
+          displayName: key,
+          id: key,
+          colorFn: (_, __) => temp,
           domainFn: (Entry entry, _) => entry.date,
           measureFn: (Entry entry, _) {
             if (entry.fields[key] is num) {
@@ -99,7 +93,10 @@ class _AnalyseViewState extends State<AnalyseView> {
               return null;
             }
           },
-          data: entries)
-    ];
+          data: entries));
+      i++;
+    }
+
+    return result;
   }
 }
