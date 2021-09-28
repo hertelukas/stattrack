@@ -36,7 +36,6 @@ class Data {
 
   static Future<File> writeData(Data data) async {
     final file = await _localFile;
-
     return file.writeAsString(jsonEncode(data));
   }
 
@@ -52,7 +51,6 @@ class Data {
   void addEntry(Map<String, Object> fields) {
     entries.add(Entry(DateTime.now(), fields));
     writeData(this);
-    print(jsonEncode(this));
   }
 
   void addEntryAt(int index, Entry entry) {
@@ -100,6 +98,16 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
   Map<String, dynamic> toJson() => _$DataToJson(this);
+
+  @override
+  String toString() {
+    String result = "----------\nData: \n";
+    for (var entry in entries) {
+      result += entry.toString() + "\n";
+    }
+
+    return result;
+  }
 }
 
 // Represents a single field
@@ -114,4 +122,9 @@ class Entry {
   factory Entry.fromJson(Map<String, dynamic> json) => _$EntryFromJson(json);
 
   Map<String, dynamic> toJson() => _$EntryToJson(this);
+
+  @override
+  String toString() {
+    return date.toString() + ": " + fields.toString();
+  }
 }

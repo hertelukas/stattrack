@@ -21,7 +21,7 @@ class _TrackerUIState extends State<TrackerUI> {
   Map<String, Object> fields;
 
   bool _save() {
-    Data.singleton.addEntry(fields);
+    Data.singleton.addEntry({...fields}); // Create a copy of the fields
     return true;
   }
 
@@ -45,8 +45,8 @@ class _TrackerUIState extends State<TrackerUI> {
               child: ElevatedButton(
             onPressed: () {
               _save();
-              ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.saved)));
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(AppLocalizations.of(context)!.saved)));
             },
             child: Text(AppLocalizations.of(context)!.save),
           ));
